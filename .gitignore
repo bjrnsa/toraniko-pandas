@@ -6,6 +6,14 @@ __pycache__/
 # C extensions
 *.so
 
+# Cache files and other
+.DS_Store
+cache/
+.python-version
+cached_data/tickers.zip
+cached_data/sp500_tickers.csv
+cached_data/factor_data.pkl
+
 # Distribution / packaging
 .Python
 build/

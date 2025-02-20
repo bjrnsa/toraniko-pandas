@@ -1,0 +1,25 @@
+[project]
+authors = [{ name = "Bjoern Aagaard" }]
+name = "toraniko_pandas"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "ipykernel>=6.29.5",
+    "lxml>=5.3.1",
+    "matplotlib>=3.10.0",
+    "numpy>=2.2.3",
+    "pandas>=2.2.3",
+    "python-dotenv>=1.0.1",
+    "simfin>=1.0.1",
+    "statsmodels>=0.14.4",
+    "tqdm>=4.67.1",
+    "yfinance>=0.2.53",
+]
+
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
