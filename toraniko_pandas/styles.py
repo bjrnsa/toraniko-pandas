@@ -58,17 +58,23 @@ def factor_mom(
     try:
         # Sort and create lagged returns
         df = returns_df.sort_index().copy()
-        df["asset_returns"] = df.groupby("symbol")["asset_returns"].shift(lag)
+        df["asset_returns"] = df.groupby("symbol", observed=True)[
+            "asset_returns"
+        ].shift(lag)
 
         # Calculate momentum scores
         mom_score = (
-            df.groupby("symbol", group_keys=True)["asset_returns"]
+            df.groupby("symbol", group_keys=True, observed=True)["asset_returns"]
             .rolling(window=trailing_days, min_periods=trailing_days)
             .apply(weighted_cumprod)
             .rename("mom_score")
         )
-        df = df.merge(mom_score, on=["symbol", "date"])
 
+        df = pd.merge(
+            df.astype({"symbol": mom_score.reset_index()["symbol"].dtype}),
+            mom_score,
+            on=["symbol", "date"],
+        )
         # Winsorize and center
         df = winsorize_xsection(df, ["mom_score"], "date", winsor_factor)
         df["mom_score"] = center_xsection(df, "mom_score", "date", True)

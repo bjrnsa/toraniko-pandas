@@ -35,9 +35,9 @@ def fill_features(
             result[feature] = result[feature].replace([np.inf, -np.inf], np.nan)
 
             # Forward fill within groups
-            result[feature] = result.groupby(over_col)[feature].transform(
-                lambda x: x.ffill()
-            )
+            result[feature] = result.groupby(over_col, observed=True)[
+                feature
+            ].transform(lambda x: x.ffill())
 
         return result
     except AssertionError:
@@ -113,7 +113,7 @@ def top_n_by_group(
 
         result = df.copy()
         result["rank"] = (
-            result.groupby(list(group_var))[rank_var]
+            result.groupby(list(group_var), observed=True)[rank_var]
             .rank(method="first", ascending=False)
             .astype(int)
         )

@@ -25,11 +25,13 @@ def center_xsection(
     pd.Series
         The centered and optionally standardized column.
     """
-    grouped = df.groupby(over_col)[target_col]
-    centered = df[target_col] - grouped.transform("mean")
+    grouped = df.groupby(over_col, observed=True)[target_col]
+    mean = grouped.transform("mean")
+    centered = df[target_col] - mean
 
     if standardize:
-        return centered / grouped.transform("std")
+        std = grouped.transform("std")
+        return centered / std
     return centered
 
 
@@ -60,7 +62,7 @@ def norm_xsection(
     pd.Series
         The normalized column.
     """
-    grouped = df.groupby(over_col)[target_col]
+    grouped = df.groupby(over_col, observed=True)[target_col]
     min_val = grouped.transform("min")
     max_val = grouped.transform("max")
 
@@ -138,7 +140,7 @@ def winsorize_xsection(
     """
     result = df.copy()
 
-    result[data_cols] = result.groupby(group_col, group_keys=False)[
+    result[data_cols] = result.groupby(group_col, observed=True, group_keys=False)[
         data_cols
     ].transform(winsorize, percentile=percentile)
 
@@ -175,9 +177,9 @@ def percentiles_xsection(
     pd.Series
         The masked column.
     """
-    grouped = df.groupby(over_col)[target_col]
-    lower_bound = grouped.transform(lambda x: x.quantile(lower_pct))
-    upper_bound = grouped.transform(lambda x: x.quantile(upper_pct))
+    grouped = df.groupby(over_col, observed=True)[target_col]
+    lower_bound = grouped.transform(lambda x: np.percentile(x, lower_pct * 100))
+    upper_bound = grouped.transform(lambda x: np.percentile(x, upper_pct * 100))
 
     result = pd.Series(fill_val, index=df.index)
     mask = (df[target_col] <= lower_bound) | (df[target_col] >= upper_bound)

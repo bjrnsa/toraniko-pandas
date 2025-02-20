@@ -112,7 +112,7 @@ def estimate_factor_returns(
     ValueError
         If required columns are missing from input DataFrames.
     """
-    returns, residuals = []
+    returns, residuals = [], []
     try:
         # Get sector and style columns
         sectors = sorted([col for col in sector_df.columns if col not in ["symbol"]])
@@ -123,7 +123,7 @@ def estimate_factor_returns(
             returns_df.merge(mkt_cap_df, on=["date", "symbol"])
             .merge(sector_df, on=["date", "symbol"])
             .merge(style_df, on=["date", "symbol"])
-        ).dropna()
+        )
 
         dates = returns_df.index.unique()
 
