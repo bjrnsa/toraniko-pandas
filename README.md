@@ -2,7 +2,6 @@
 
 Pandas implementation of institutional-grade multi-factor risk model (Polars original by [0xfdf/toraniko](https://github.com/0xfdf/toraniko))
 
-
 ## Installation
 
 ```
@@ -10,8 +9,18 @@ pip install toraniko-pandas
 ```
 
 ## User Manual
+
 This notebook demonstrates factor analysis using SimFin financial data and custom factor models.
 
+### Important
+You need free API key from [SimFin](https://www.simfin.com/en/) to run my example. See their [Github](https://github.com/SimFin/simfin) for more info.
+Create a .env file and place it like below
+```
+# SimFin 
+SIMFIN_API_KEY = "YOUR_KEY"
+```
+
+### Data
 ```python
 import warnings
 
@@ -43,20 +52,7 @@ sectors
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -268,20 +264,7 @@ industries
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -610,20 +593,7 @@ ret_df
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -705,20 +675,7 @@ cap_df
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -804,20 +761,7 @@ sector_scores
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
@@ -1073,20 +1017,7 @@ style_scores
 ```
 
 <div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
 
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-
-</style>
 <table border="1" class="dataframe">
   <thead>
     <tr style="text-align: right;">
