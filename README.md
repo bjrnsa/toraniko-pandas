@@ -5,7 +5,7 @@ Pandas implementation of institutional-grade multi-factor risk model (Polars ori
 ## Installation
 
 ```
-pip install toraniko-pandas
+pip install toraniko_pandas
 ```
 
 ## User Manual
