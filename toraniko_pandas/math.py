@@ -177,15 +177,18 @@ def percentiles_xsection(
     pd.Series
         The masked column.
     """
-    grouped = df.groupby(over_col, observed=True)[target_col]
-    lower_bound = grouped.transform(lambda x: np.percentile(x, lower_pct * 100))
-    upper_bound = grouped.transform(lambda x: np.percentile(x, upper_pct * 100))
 
-    result = pd.Series(fill_val, index=df.index)
-    mask = (df[target_col] <= lower_bound) | (df[target_col] >= upper_bound)
-    result[mask] = df.loc[mask, target_col]
+    q_low = df.groupby(over_col)[target_col].transform(
+        lambda x: x.quantile(lower_pct, interpolation="lower")
+    )
+    q_high = df.groupby(over_col)[target_col].transform(
+        lambda x: x.quantile(upper_pct, interpolation="higher")
+    )
 
-    return result
+    mask = (df[target_col] <= q_low) | (df[target_col] >= q_high)
+    result = df.assign(**{target_col: lambda d: d[target_col].where(mask, fill_val)})
+
+    return result[target_col]
 
 
 def exp_weights(window: int, half_life: int) -> np.ndarray:

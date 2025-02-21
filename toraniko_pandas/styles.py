@@ -10,6 +10,15 @@ from toraniko_pandas.math import (
     winsorize_xsection,
 )
 
+### This bears repeating from the original implementation:
+
+###
+# NB: These functions do not try to handle NaN or null resilience for you, nor do they make allowances
+# for data having pathological distributions. Garbage in, garbage out. You need to inspect your data
+# and use the functions in the math and utils modules to ensure your features are sane and
+# well-behaved before you try to construct factors from them!
+###
+
 
 def factor_mom(
     returns_df: pd.DataFrame,
@@ -63,18 +72,15 @@ def factor_mom(
         ].shift(lag)
 
         # Calculate momentum scores
-        mom_score = (
+        df = (
             df.groupby("symbol", group_keys=True, observed=True)["asset_returns"]
             .rolling(window=trailing_days, min_periods=trailing_days)
             .apply(weighted_cumprod)
             .rename("mom_score")
+            .reset_index("symbol")
+            .sort_index()
         )
 
-        df = pd.merge(
-            df.astype({"symbol": mom_score.reset_index()["symbol"].dtype}),
-            mom_score,
-            on=["symbol", "date"],
-        )
         # Winsorize and center
         df = winsorize_xsection(df, ["mom_score"], "date", winsor_factor)
         df["mom_score"] = center_xsection(df, "mom_score", "date", True)
@@ -190,6 +196,7 @@ def factor_val(
         df["cf_price"] = center_xsection(df, "cf_price", "date", True)
 
         # Calculate value score
+        # NB: it's imperative you've properly handled NaNs prior to this point
         df["val_score"] = df[["book_price", "sales_price", "cf_price"]].mean(axis=1)
 
         # Center and standardize value score
