@@ -1,10 +1,13 @@
 [project]
-authors = [{ name = "Bjoern Aagaard" }]
+authors = [
+    { name = "Bjørn Aagaard", email = "aagaardbs@gmail.com" } ]
 name = "toraniko_pandas"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = ["toraniko", "pandas", "data", "finance", "stock", "market", "analysis", "factor_models"]
+description = "Pandas implementation of institutional-grade multi-factor risk model (Polars original by 0xfdf/toraniko)"
 dependencies = [
     "ipykernel>=6.29.5",
     "lxml>=5.3.1",
@@ -24,3 +27,6 @@ dependencies = [
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[project.urls]
+Repository = "https://github.com/bjrnsa/toraniko-pandas"
+Issues = "https://github.com/bjrnsa/toraniko-pandas/issues"
