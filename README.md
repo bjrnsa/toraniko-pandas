@@ -5,7 +5,7 @@ Pandas implementation of institutional-grade multi-factor risk model (Polars ori
 ## Installation
 
 ```
-pip install toraniko-pandas
+pip install toraniko_pandas
 ```
 
 ## User Manual
@@ -1002,9 +1002,8 @@ plt.title("Value Factor Distribution")
 plt.show()
 ```
 
-![png](demo_files/demo_9_0.png)
-
-![png](demo_files/demo_9_1.png)
+![demo_9_0](https://github.com/user-attachments/assets/37fbfa7c-1937-49b7-a557-c6c8d8b2cd25)
+![demo_9_1](https://github.com/user-attachments/assets/4ae80b49-7f7b-428b-b67d-bd60f55aff91)
 
 ```python
 # %%  All of which we merge to get the style scores
@@ -1155,9 +1154,9 @@ plt.title("Factor Returns Cumulative")
 plt.show()
 ```
 
-![png](demo_files/demo_13_0.png)
+![demo_13_1](https://github.com/user-attachments/assets/4f47325c-ce8b-42c3-867f-b4159f581f93)
 
-![png](demo_files/demo_13_1.png)
+![demo_13_0](https://github.com/user-attachments/assets/fe9cd708-7b7f-49dd-9c5f-362fa238b055)
 
 ```python
 y = returns_df.query("symbol == 'AAPL'")["asset_returns"]
