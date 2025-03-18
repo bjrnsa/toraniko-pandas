@@ -1,3 +1,4 @@
+# %%
 import os
 import warnings
 from functools import wraps
@@ -134,7 +135,12 @@ class SimFin(sf.StockHub):
         Load financial signals from SimFin.
     """
 
-    def __init__(self, market: str = "us", variant: str = "daily"):
+    def __init__(
+        self,
+        market: str = "us",
+        variant: str = "daily",
+        fundamental_index: list[str] = ["Ticker", "Date"],
+    ):
         """
         Initialize the SimFin API.
 
@@ -149,6 +155,7 @@ class SimFin(sf.StockHub):
         sf.set_api_key(API_KEY)
         sf.set_data_dir("~/data/simfin")
 
+        self._fundamental_index = fundamental_index
         self.variant = variant
         self.market = market  # Storing market as attribute
 
@@ -166,6 +173,9 @@ class SimFin(sf.StockHub):
         # Load dataframes inside the method.
         stock_prices = self._load_shareprices(variant=self.variant)
         returns_df = self.load_returns(stock_prices)
+        # self._group_index = "symbol"
+        # self._date_index = "date"
+        self._fundamental_index = ["Ticker"]
         value_df = self.load_value_data()
 
         df = returns_df.merge(value_df, on=["symbol", "date"])
@@ -384,6 +394,7 @@ class SimFin(sf.StockHub):
         return self.fin_signals(variant=variant)
 
 
+# %%
 if __name__ == "__main__":
     # Disable FutureWarnings
     warnings.simplefilter(action="ignore", category=FutureWarning)

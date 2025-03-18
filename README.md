@@ -2,6 +2,26 @@
 
 Pandas implementation of institutional-grade multi-factor risk model (Polars original by [0xfdf/toraniko](https://github.com/0xfdf/toraniko))
 
+## Changelog
+
+### New Statistical Functions
+The following functions in `extras.py` are inspired by the techniques described in ["The Elements of Quantitative Investing" by Giuseppe A. Paleologo](https://www.amazon.com/Elements-Quantitative-Investing-Wiley-Finance/dp/139426545X):
+
+- **Covariance Estimation**
+  - `shrinkage_cov`: Implementation of Ledoit & Wolf's optimal shrinkage method for covariance matrices
+  - `ewma_cov`: Exponentially Weighted Moving Average for covariance estimation
+  - `lagged_covs`: Calculation of lag-based covariance matrices for time series data
+
+- **Autocorrelation-Consistent Covariance Estimation**
+  - `autocorr_cov`: Autocorrelation-consistent estimator for factor covariance
+  - `nwest_cov`: Newey-West estimator for heteroskedasticity and autocorrelation consistent covariance
+
+- **CVXPY Optimization**
+  - `estimate_factor_returns_cvxpy`: Constrained optimization for factor return estimation
+  - `_factor_returns_cvxpy`: Implementation of the convex optimization approach with sum-zero constraints
+
+These functions provide robust statistical methods for portfolio management, risk modeling, and factor analysis as described in modern quantitative finance literature.
+
 ## Installation
 
 ```
@@ -16,7 +36,7 @@ This notebook demonstrates factor analysis using SimFin financial data and custo
 You need free API key from [SimFin](https://www.simfin.com/en/) to run my example. See their [Github](https://github.com/SimFin/simfin) for more info.
 Create a .env file and place it like below
 ```
-# SimFin 
+# SimFin
 SIMFIN_API_KEY = "YOUR_KEY"
 ```
 
@@ -439,7 +459,6 @@ industries
     </tr>
     <tr>
       <th>...</th>
-      <td>...</td>
       <td>...</td>
       <td>...</td>
       <td>...</td>
@@ -1171,36 +1190,36 @@ results.summary()
 <table class="simpletable">
 <caption>OLS Regression Results</caption>
 <tr>
-  <th>Dep. Variable:</th>      <td>asset_returns</td>  <th>  R-squared:         </th> <td>   0.610</td> 
+  <th>Dep. Variable:</th>      <td>asset_returns</td>  <th>  R-squared:         </th> <td>   0.610</td>
 </tr>
 <tr>
-  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.608</td> 
+  <th>Model:</th>                   <td>OLS</td>       <th>  Adj. R-squared:    </th> <td>   0.608</td>
 </tr>
 <tr>
-  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   259.8</td> 
+  <th>Method:</th>             <td>Least Squares</td>  <th>  F-statistic:       </th> <td>   259.8</td>
 </tr>
 <tr>
   <th>Date:</th>             <td>Fri, 21 Feb 2025</td> <th>  Prob (F-statistic):</th> <td>3.77e-175</td>
 </tr>
 <tr>
-  <th>Time:</th>                 <td>10:42:32</td>     <th>  Log-Likelihood:    </th> <td>  2914.3</td> 
+  <th>Time:</th>                 <td>10:42:32</td>     <th>  Log-Likelihood:    </th> <td>  2914.3</td>
 </tr>
 <tr>
-  <th>No. Observations:</th>      <td>   959</td>      <th>  AIC:               </th> <td>  -5817.</td> 
+  <th>No. Observations:</th>      <td>   959</td>      <th>  AIC:               </th> <td>  -5817.</td>
 </tr>
 <tr>
-  <th>Df Residuals:</th>          <td>   953</td>      <th>  BIC:               </th> <td>  -5787.</td> 
+  <th>Df Residuals:</th>          <td>   953</td>      <th>  BIC:               </th> <td>  -5787.</td>
 </tr>
 <tr>
-  <th>Df Model:</th>              <td>     5</td>      <th>                     </th>     <td> </td>    
+  <th>Df Model:</th>              <td>     5</td>      <th>                     </th>     <td> </td>
 </tr>
 <tr>
-  <th>Covariance Type:</th>         <td>HC1</td>       <th>                     </th>     <td> </td>    
+  <th>Covariance Type:</th>         <td>HC1</td>       <th>                     </th>     <td> </td>
 </tr>
 </table>
 <table class="simpletable">
 <tr>
-          <td></td>             <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>  
+          <td></td>             <th>coef</th>     <th>std err</th>      <th>t</th>      <th>P>|t|</th>  <th>[0.025</th>    <th>0.975]</th>
 </tr>
 <tr>
   <th>const</th>             <td>    0.0004</td> <td>    0.000</td> <td>    0.955</td> <td> 0.340</td> <td>   -0.000</td> <td>    0.001</td>

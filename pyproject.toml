@@ -2,13 +2,14 @@
 authors = [
     { name = "Bjørn Aagaard", email = "aagaardbs@gmail.com" } ]
 name = "toraniko_pandas"
-version = "0.1.1"
+version = "0.1.2"
 readme = "README.md"
 requires-python = ">=3.10"
 license = "MIT"
 keywords = ["toraniko", "pandas", "data", "finance", "stock", "market", "analysis", "factor_models"]
 description = "Pandas implementation of institutional-grade multi-factor risk model (Polars original by 0xfdf/toraniko)"
 dependencies = [
+    "cvxpy>=1.6.4",
     "ipykernel>=6.29.5",
     "lxml>=5.3.1",
     "matplotlib>=3.10.0",
@@ -16,6 +17,7 @@ dependencies = [
     "numpy>=2.2.3",
     "pandas>=2.2.3",
     "python-dotenv>=1.0.1",
+    "seaborn>=0.13.2",
     "simfin>=1.0.1",
     "statsmodels>=0.14.4",
     "tqdm>=4.67.1",
